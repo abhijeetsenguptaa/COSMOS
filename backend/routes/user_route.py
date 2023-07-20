@@ -34,8 +34,9 @@ def login():
         token = jwt.encode({'email':user['email']}, "abhijeet", algorithm='HS256')
 
         return jsonify({'message': 'Login successful!', 'token': token})
-
-    return jsonify({'message': 'Invalid credentials. Please try again.'}), 401
+    
+    else:
+        return jsonify({'message': 'Invalid credentials. Please try again.'})
 
 
 @userRoute.route('/register', methods=['POST'])
