@@ -1,21 +1,50 @@
 import React from 'react'
 import LoginBtn from '../Components/LoginBtn'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 export default function Register() {
     const [displayEmail, setDisplayEmail] = React.useState(false)
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
 
     const handleHider = () => {
         setDisplayEmail(!displayEmail)
     }
+
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value)
+    }
+
+    const handlePassword = (e) => {
+        setPassword(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        let userDetails = {
+            'email': email,
+            'password': password
+        }
+
+        axios
+            .post('http://localhost:5000/user/register', userDetails)
+            .then((res) => {
+                alert(res.data.message)
+            })
+    }
+
+
     return (
         <div className='flex justify-center text-center items-center h-screen'>
             <div className=' w-96 mt-80'>
                 <h2 className=' text-4xl font-bold mb-4'>Create your account</h2>
                 <p>Note that phone verification may be required for signup. Your number will only be used to verify your identity for security purposes.</p>
                 {displayEmail && (<><label htmlFor="email" className=''>Email address</label><br /></>)}
-                <input type="email" className='border w-full p-2 my-2' onClick={handleHider} />
-                <input type="password" className='border w-full p-2 my-2' />
-                <div className=' bg-custom-green text-white p-3 rounded my-4 hover:cursor-pointer hover:bg-green-700'>Continue</div>
+                <input type="email" className='border w-full p-2 my-2' onClick={handleHider} onChange={handleEmail} value={email}/>
+                <input type="password" className='border w-full p-2 my-2' onChange={handlePassword} value={password}/>
+                <div className=' bg-custom-green text-white p-3 rounded my-4 hover:cursor-pointer hover:bg-green-700' onClick={handleSubmit}>Continue</div>
                 <p className='m-2'>Already have an account?<span className=' text-green-500 ml-2'><Link to='/login'>Log in</Link></span></p>
                 <div className="flex items-center mt-4 mb-4">
                     <hr className="flex-grow border-gray-300" />
