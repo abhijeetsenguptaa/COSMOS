@@ -32,7 +32,10 @@ export default function Login() {
 
         axios
             .post('http://localhost:5000/user/login', userDetails)
-            .then((res) => console.log(res))
+            .then((res) => {
+                alert(res.data.message)
+                localStorage.setItem('token',res.data.token)
+            })
     }
     return (
         <div className='flex justify-center text-center items-center h-screen'>
