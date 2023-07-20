@@ -31,7 +31,7 @@ def login():
 
     if user and bcrypt.checkpw(password.encode('utf-8'), user['password']):
         # Generate a JWT token upon successful login
-        token = jwt.encode({'email':user['email']}, "abhijeet", algorithm='HS256')
+        token = jwt.encode({'email':user['email']}, 'abhijeet', algorithm='HS256')
 
         return jsonify({'message': 'Login successful!', 'token': token})
     
