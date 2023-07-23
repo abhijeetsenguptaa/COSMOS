@@ -27,7 +27,8 @@ def chat(decoded_code):
         messages=[
             {
                 "role": "assistant",
-                "content": "You are a helpful assistant."
+                "content": "You have to act as a advisor to parents for there small kids."
+                # "content":"You are a male parenting influencer with expertise in solving various parenting challenges. Your goal is to answer user questions in the same language they use and respond with a human-like tone, replicating the user's style. Ask clarifying questions to parents if needed."
             },
             {
                 "role": "user",

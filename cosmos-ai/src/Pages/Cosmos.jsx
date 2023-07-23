@@ -3,12 +3,22 @@ import React, { useRef, useState } from 'react';
 export default function Cosmos() {
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState('');
+  const [logOut,setLogout] = useState(false)
   const messagesRef = useRef(null);
 
 
   const handleInputChange = (event) => {
     setCurrentMessage(event.target.value);
   };
+
+  const hideLogout = () => {
+    setLogout(!logOut)
+  }
+
+  const logOutBtn = () => {
+    localStorage.setItem('token',null);
+    window.location.href = "/login"
+  }
 
   const handleSendClick = async () => {
     if (currentMessage.trim() !== '') {
@@ -50,10 +60,11 @@ export default function Cosmos() {
           </div>
         </div>
         <div id='scroll-bar'>{/* History of the Message */}</div>
-        <div className='flex border rounded mb-2 p-2 items-center'>
+        <div className='flex border rounded mb-2 p-2 items-center justify-between'>
           <div>Abhijeet</div>
-          <div>. . .</div>
+          <div className='mb-2 hover:cursor-pointer' onClick={hideLogout}>. . .</div>
         </div>
+        {logOut && <div className=' fixed bottom-20 left-3' onClick={logOutBtn}>Logout</div>}
       </div>
 
       {/* Right Side */}
@@ -62,7 +73,7 @@ export default function Cosmos() {
           <h1 className='text-3xl font-bold'>COSMOS</h1>
           <div ref={messagesRef} className='h-3/4 mt-4 overflow-y-auto p-4 bg-custom-gray text-white'>
             {messages.map((message, index) => (
-              <div key={index} className='border p-2 my-2 rounded'>
+              <div key={index} className='border p-2 my-2 rounded w-10/12 ml-20'>
                 {message}
               </div>
             ))}

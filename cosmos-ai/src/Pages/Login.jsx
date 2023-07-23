@@ -33,8 +33,14 @@ export default function Login() {
         axios
             .post('http://localhost:5000/user/login', userDetails)
             .then((res) => {
-                alert(res.data.message)
-                localStorage.setItem('token',res.data.token)
+                if (res.data.message === "Login successful!") {
+                    alert(res.data.message)
+                    localStorage.setItem('token', res.data.token)
+                    window.location.href = "/cosmos"
+                }
+                else {
+                    alert(res.data.message)
+                }
             })
     }
     return (
